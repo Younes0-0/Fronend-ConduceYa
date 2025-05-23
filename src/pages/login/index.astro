@@ -82,7 +82,19 @@ if (Astro.request.method === "POST") {
 </Layout>
 
 <script>
-    
+    const googleButton = document.getElementById('google');
+    const githubButton = document.getElementById('github');
+
+    if (googleButton) {
+        googleButton.addEventListener('click', () => {
+            window.location.href = 'https://fronend-conduce-ya.vercel.app/api/auth/signin/google';
+        });
+    }
+    if (githubButton) {
+        githubButton.addEventListener('click', () => {
+            window.location.href = 'https://fronend-conduce-ya.vercel.app/api/auth/signin/github';
+        });
+    }
 </script>
 
 <style is:global>
