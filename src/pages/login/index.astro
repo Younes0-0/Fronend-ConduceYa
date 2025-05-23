@@ -19,6 +19,7 @@ if (Astro.request.method === "POST") {
     const form = await Astro.request.formData();
     const username = form.get("username");
     const password = form.get("password");
+    //[TODO] CAMBIAR A LA URL DEL BACKEND
     const response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: {
