@@ -104,17 +104,19 @@ const usuario = {
         <h2>Próximas Clases</h2>
         <div class="lista-clases">
           {usuario.proximasClases.map(clase => (
-            <div class="clase-card">
-              <div class="clase-info">
-                <strong>{clase.fecha}</strong>
-                <span>{clase.hora}</span>
+            <div>
+              <div class="clase-card">
+                <div class="clase-info">
+                  <strong>{clase.fecha}</strong>
+                  <span>{clase.hora}</span>
+                </div>
+                <div class="clase-detalles">
+                  <p>Instructor: {clase.instructor}</p>
+                  <p>Tipo: {clase.tipo}</p>
+                </div>
               </div>
-              <div class="clase-detalles">
-                <p>Instructor: {clase.instructor}</p>
-                <p>Tipo: {clase.tipo}</p>
-              </div>
-            </div>
               <button class="btn-cancelar" disabled>Cancelar</button>
+            </div>
           ))}
         </div>
       </article>
