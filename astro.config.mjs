@@ -6,4 +6,15 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
     output: 'server',
     adapter: vercel(),
+    // 🧩 Añade esto: 
+    vite: {
+        resolve: {
+        alias: {
+            '@': './src',
+            '@components': '/src/components',
+            '@layouts': '/src/layouts',
+            '@pages': '/src/pages'
+        }
+        }
+    }
 });
