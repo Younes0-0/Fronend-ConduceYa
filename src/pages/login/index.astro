@@ -4,6 +4,8 @@ import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import {getSession} from "auth-astro/server";
 import { SignIn } from 'auth-astro/components';
+import Google from '@auth/core/providers/google';
+import GitHub from '@auth/core/providers/github';
 
 
 const session = await getSession(Astro.request);
