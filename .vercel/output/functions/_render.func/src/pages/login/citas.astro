@@ -1,0 +1,207 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+---
+
+<Layout>
+    <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa" />
+
+    <main class="citas-dashboard">
+        <aside class="sidebar">
+            <h2>Admin</h2>
+            <nav>
+                <ul>
+                    <li><a href="/admin-dashboard">Dashboard</a></li>
+                    <li><a href="/usuarios">Usuarios</a></li>
+                    <li><a href="/citas">Citas</a></li>
+                    <li><a href="/configuracion">Configuración</a></li>
+                    <li><button id="logout">Cerrar sesión</button></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="dashboard-content">
+            <h1>Gestión de Citas</h1>
+            <p>Consulta las citas programadas en la autoescuela.</p>
+
+            <div class="table-container">
+                <h2>Lista de Citas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>Profesor</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="citasTable">
+                        <tr>
+                            <td colspan="5">Cargando citas...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Layout>
+
+
+<style is:global>
+    .citas-dashboard {
+        display: flex;
+        height: 100vh;
+    }
+
+    .sidebar {
+        width: 250px;
+        background: #2c3e50;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar h2 {
+        text-align: center;
+    }
+
+    .sidebar nav ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar nav ul li {
+        margin: 15px 0;
+    }
+
+    .sidebar nav ul li a, .sidebar nav ul li button {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        text-align: left;
+        border: none;
+        background: none;
+        width: 100%;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .sidebar nav ul li button:hover, .sidebar nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+    }
+
+    .dashboard-content {
+        flex-grow: 1;
+        padding: 20px;
+        background: #ecf0f1;
+    }
+
+    .table-container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: linear-gradient(45deg, #3498db, #2c3e50);
+        color: white;
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    tr:hover {
+        background: rgba(52, 152, 219, 0.1);
+    }
+
+    :global(.estado) {
+        font-weight: bold;
+        text-align: center;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: inline-block;
+        min-width: 100px;
+        text-transform: capitalize;
+        font-size: 0.9rem;
+        transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estado PENDIENTE */
+    :global(.estado-pendiente) {
+        background: #ffeb99; /* Amarillo suave */
+        color: #856404; /* Marrón oscuro */
+        border: 1px solid #f4c542;
+    }
+
+    /* Estado CONFIRMADA */
+    :global(.estado-confirmada) {
+        background: #d4edda; /* Verde pastel */
+        color: #155724; /* Verde oscuro */
+        border: 1px solid #98c68e;
+    }
+
+    /* Estado CANCELADA */
+    :global(.estado-cancelada) {
+        background: #f8d7da; /* Rojo claro */
+        color: #721c24; /* Rojo oscuro */
+        border: 1px solid #e69a9a;
+        text-decoration: line-through; /* Para indicar que está inactiva */
+        opacity: 0.7; /* Leve transparencia */
+    }
+
+    /* Efecto de animación al cambiar de estado */
+    :global(.estado-animado) {
+        animation: estadoCambio 0.4s ease-in-out;
+    }
+
+    @keyframes estadoCambio {
+        from {
+            transform: scale(0.95);
+            opacity: 0.5;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            font-size: 14px;
+        }
+    }
+</style>

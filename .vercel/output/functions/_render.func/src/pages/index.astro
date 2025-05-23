@@ -1,0 +1,31 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import HeroSection from '@components/sections/Hero-Section.astro';
+import Features from '@components/sections/Features.astro';
+import StepsSection from '@components/sections/Steps-Section.astro';
+import LicenceSection from '@components/sections/License-Section.astro';
+import PricingSection from '@components/sections/Pricing-Section.astro';
+import ContactSection from '@components/sections/Contact-Section.astro';
+import Footer from '@components/layout/Footer.astro';
+---
+
+<Layout>
+	<Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+	<main>
+		<HeroSection/>
+		<Features title="¿Por qué elegir ConduceYa?" imageSrc="/img/inicio-conduceya.webp" imageAlt="Ventaja de ConduceYa">
+			<p class="lead">
+				ConduceYa te ofrece la mejor experiencia de aprendizaje para obtener tu carnet de conducir desde el móvil.
+				Nuestro método es fácil, rápido y está adaptado a tus necesidades.
+			</p>
+		</Features>
+		
+		<StepsSection/>
+		<LicenceSection/>
+		<PricingSection/>
+		<ContactSection/>
+	</main>
+	<Footer/>
+
+</Layout>
