@@ -69,11 +69,11 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <SignIn class="btn btn-danger w-100 mx-1" property="google" />
-                <SignIn class="btn btn-dark w-100 mx-1" property="github" id="github">Github</SignIn>
+                <a href="/api/auth/signin/google" class="btn btn-danger w-100 mx-1">Google</a>
+                <a href="/api/auth/signin/github" class="btn btn-dark w-100 mx-1">GitHub</a>
                 <!--
-                    <button class="btn btn-primary w-100 mx-1" type="button">Facebook</button>
-                --> 
+                <a href="/api/auth/signin/facebook" class="btn btn-primary w-100 mx-1">Facebook</a>
+                -->
             </div>
         </section>
     </main>
