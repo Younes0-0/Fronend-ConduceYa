@@ -81,17 +81,7 @@ if (Astro.request.method === "POST") {
     <Footer />
 </Layout>
 
-<script>
-    const { signIn } = await import("auth—astro/client")
 
-    const $googleBtn = document.getElementById("google");
-    const $githubBtn = document.getElementById("github");
-
-    $googleBtn?.onclick = () => signIn("google");
-    $githubBtn?.onclick = () => signIn("github");
-
-
-</script>
 
 <style is:global>
     .login-bg {
