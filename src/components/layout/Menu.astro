@@ -19,10 +19,10 @@ const services = [
             <a class="navbar-brand fs-3 fw-bold text-primary" href="/">
                 <img src={props.imageSrc} height="50" alt={props.imageAlt || "Logo de la autoescuela"}>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Abrir menú">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Abrir menú">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+            <div class="navbar-collapse collapse" id="navbarContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {
                         services.map(service => (
@@ -33,10 +33,10 @@ const services = [
                     }
                 </ul>
                 <!-- Buscador de servicios -->
-                <div class="search-container position-relative">
+                <form class="d-flex me-3">
                     <input id="searchInput" class="form-control border-primary shadow-sm" type="search" placeholder="Buscar servicio..." aria-label="Buscar">
                     <div id="searchResults" class="search-results position-absolute bg-white shadow rounded"></div>
-                </div>
+                </form>
                 {
                     sesion ? (
                         <div class="header-icons ms-3">
