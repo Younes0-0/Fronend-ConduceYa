@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "FRONDEND",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,7 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.8.0"
+    "@auth/core": "^0.37.4",
+    "astro": "^5.8.0",
+    "auth-astro": "^4.2.0"
   },
   "devDependencies": {
     "@astrojs/vercel": "^8.1.4"
