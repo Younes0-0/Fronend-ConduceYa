@@ -69,8 +69,8 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <button id="login">Login</button>
-                <button id="logout">Logout</button>
+                <a class="btn btn-danger w-100 mx-1" id="google">Google</a>
+                <a class="btn btn-dark w-100 mx-1" id="github">GitHub</a>
                 <!--
                     <button class="btn btn-primary w-100 mx-1" type="button">Facebook</button>
                 --> 
@@ -82,9 +82,10 @@ if (Astro.request.method === "POST") {
 </Layout>
 
 <script>
-    const { signIn, signOut } = await import("auth-astro/client")
-    document.querySelector("#login").onclick = () => signIn("github")
-    document.querySelector("#logout").onclick = () => signOut()
+    const { signIn } = await import("auth-astro/client")
+    document.querySelector("#google").onclick = () => signIn("google")
+    document.querySelector("#github").onclick = () => signIn("github")
+   
 </script>
 
 <style is:global>
