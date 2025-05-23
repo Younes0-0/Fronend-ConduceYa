@@ -79,16 +79,6 @@ if (Astro.request.method === "POST") {
 
     <Footer />
 </Layout>
-<script>
-    import { SignIn } from "auth-astro/components";
-
-    const google = document.getElementById("google");
-    const github = document.getElementById("github");
-
-    if (google) google.onclick = () => SignIn("google");
-    if (github) github.onclick = () => SignIn("github");
-
-</script>
 
 
 <style is:global>
