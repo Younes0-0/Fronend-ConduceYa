@@ -1,0 +1,44 @@
+---
+interface CategoryProps {
+  title: string;
+  description: string;
+  minAge: number;
+  image: string;
+  imageAlt: string;
+  reverse?: boolean; // Opción predeterminada: false
+}
+
+// Definir `props` correctamente con tipado explícito
+const props = Astro.props as CategoryProps;
+
+// Determinar la clase de fila dependiendo de `reverse`
+const rowClass = props.reverse ? "row category text-center flex-row-reverse mb-4" : "row category text-center mb-4";
+---
+
+<div class={rowClass}>
+  <div class="col-md-6 d-flex justify-content-center">
+    <img src={props.image} class="img-fluid rounded" alt={props.imageAlt} />
+  </div>
+  <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+    <h3 class="mt-sm-4">{props.title}</h3>
+    <p class="lead">{props.description}</p>
+    <p class="text-primary font-weight-bold text-uppercase">Edad mínima: {props.minAge} años.</p>
+  </div>
+</div>
+
+<style>
+  .category {
+    margin-top: 40px;
+  }
+  .lead {
+    font-weight: 400;
+    text-align: justify;
+    text-indent: 10px;
+  }
+  @media (max-width: 768px) {
+    .lead {
+      text-align: center;
+      text-indent: 0;
+    }
+  }
+</style>

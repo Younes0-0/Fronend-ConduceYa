@@ -1,0 +1,41 @@
+---
+interface Props {
+  solicitudes: any[];
+}
+
+const { solicitudes } = Astro.props;
+---
+
+<div class="table-container">
+  <h2>Solicitudes de Prácticas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Sesión</th>
+        <th>Teórico</th>
+        <th>Zona</th>
+        <th>Inscripción</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody id="citasTable">
+      {solicitudes.length === 0 ? (
+        <tr><td colspan="7">No hay solicitudes.</td></tr>
+      ) : (
+        solicitudes.map((s) => (
+          <tr>
+            <td>{s.nombre}</td>
+            <td>{s.telefono}</td>
+            <td>{s.sesion_preferida}</td>
+            <td>{s.fecha_teorico ? new Date(s.fecha_teorico).toLocaleDateString() : '-'}</td>
+            <td>{new Date(s.fecha_inscripcion).toLocaleDateString()}</td>
+            <td>{s.zona_nombre}</td>
+            <td>{s.estado_display || s.estado}</td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>

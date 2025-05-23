@@ -1,0 +1,61 @@
+---
+import Hero from './Hero.astro';
+import Category from './Category.astro';
+import PriceTable from './PriceTable.astro';
+
+const prices: { type: string; amount: number }[] = [
+  { type: 'Permiso A1', amount: 600 },
+  { type: 'Permiso A2', amount: 700 },
+  { type: 'Permiso A', amount: 800 }
+];
+---
+
+<Hero 
+  title="Permiso A"
+  subtitle="Descubre las diferentes categorías del Permiso A y elige la adecuada para ti"
+  buttonText="Más información"
+  buttonLink="#info"
+/>
+
+<section id="info" class="info-section">
+  <div class="container">
+    <h2 class="text-center my-4">Categorías del Permiso A</h2>
+
+    <Category
+      title="Permiso AM"
+      description="El Permiso AM te permite conducir ciclomotores de hasta 50 cc y velocidad máxima de 45 km/h. Es ideal para quienes desean empezar a conducir vehículos ligeros y de baja cilindrada."
+      minAge={15}
+      image="/img/permisoA.webp"
+      imageAlt="Permiso AM - Ciclomotor"
+      reverse={false}
+      style="view-transition-name: permisoB;"
+    />
+
+    <Category
+      title="Permiso A1"
+      description="El Permiso A1 te permite conducir motocicletas de hasta 125 cc, con una potencia máxima de 11 kW y una relación potencia/peso de hasta 0.1 kW/kg. Perfecto para scooters y motocicletas pequeñas."
+      minAge={16}
+      image="/img/a22.jpg"
+      imageAlt="Permiso A1 - Scooter"
+      reverse={true}
+    />
+
+    <Category
+      title="Permiso A2"
+      description="El Permiso A2 te habilita para conducir motocicletas de hasta 35 kW (47 CV) y una relación potencia/peso de hasta 0.2 kW/kg. Es el paso intermedio hacia el Permiso A."
+      minAge={18}
+      image="/img/a3.jpg"
+      imageAlt="Permiso A2 - Motocicleta"
+      reverse={false}
+    />
+
+    <Category
+      title="Permiso A"
+      description="El Permiso A es el nivel más avanzado, que te permite conducir motocicletas de cualquier cilindrada y potencia sin restricciones. Perfecto para quienes buscan libertad total sobre dos ruedas."
+      minAge={20}
+      image="/img/a4.jpg"
+      imageAlt="Permiso A - Superbike"
+      reverse={true}
+    />
+  </div>
+</section>

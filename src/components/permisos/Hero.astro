@@ -1,0 +1,25 @@
+---
+const { title, subtitle, buttonText, buttonLink } = Astro.props;
+---
+
+<section class="hero text-center">
+  <div class="container">
+    <h1>{title}</h1>
+    <p class="lead">{subtitle}</p>
+    {buttonLink && buttonText && (
+      <a href={buttonLink} class="btn btn-primary btn-lg">{buttonText}</a>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 50px 0;
+  }
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+</style>

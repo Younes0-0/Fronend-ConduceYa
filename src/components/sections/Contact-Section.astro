@@ -1,0 +1,48 @@
+<section class="contact-section text-center py-5" id="contacto">
+    <div class="container">
+        <h2 class="mb-4 text-uppercase fw-bold">¿Tienes más preguntas? ¡Contáctanos!</h2>
+        <p class="mb-4 text-muted">Estamos aquí para ayudarte. Déjanos tu mensaje y te responderemos lo antes posible.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-semibold">Nombre</label>
+                        <input type="text" class="form-control shadow-sm" id="name" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold">Correo Electrónico</label>
+                        <input type="email" class="form-control shadow-sm" id="email" placeholder="tuemail@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label fw-semibold">Mensaje</label>
+                        <textarea class="form-control shadow-sm" id="message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 shadow">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .contact-section {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+    .contact-section h2 {
+        color: #343a40;
+    }
+    .form-control {
+        border-radius: 8px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>

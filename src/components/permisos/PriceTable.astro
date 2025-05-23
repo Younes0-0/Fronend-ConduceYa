@@ -1,0 +1,32 @@
+---
+interface Price {
+  type: string;
+  amount: number;
+}
+
+// Definir correctamente `Astro.props`
+const props = Astro.props as { prices: Price[] };
+---
+
+<section class="py-5" id="precios">
+  <div class="container">
+    <h2 class="text-center">Tabla de Precios</h2>
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Tipo de Permiso</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.prices.map((price) => (
+          <tr>
+            <td>{price.type}</td>
+            <td>€{price.amount}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="lead text-center">¡Consigue un descuento del 10% si te inscribes a dos permisos juntos!</p>
+  </div>
+</section>

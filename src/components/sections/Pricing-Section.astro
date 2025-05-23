@@ -1,0 +1,94 @@
+---
+
+---
+
+<section id="pricing" class="pricing-section text-center">
+    <div class="container">
+        <h2 class="mb-5">Planes y Precios</h2>
+        <div class="row">
+            <div class="col-md-12 precios-hover" id="promocion">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Promoción Especial</h3>
+                        <p class="card-text">Oferta especial por el amor que nos tenemos.💖</p>
+                        <h4>19.99€</h4>
+                        <a href="formulario.html" class="btn btn-outline-primary">Comenzar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 precios-hover">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Básico</h3>
+                        <p class="card-text">Acceso a todas las clases teóricas y prácticas con soporte durante 1 meses.</p>
+                        <h4>29.99€</h4>
+                        <a href="formulario.html" class="btn btn-outline-primary">Comenzar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 precios-hover">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Estándar</h3>
+                        <p class="card-text">Acceso a todas las clases teóricas y prácticas con soporte durante 3 meses.</p>
+                        <h4>59.99€</h4>
+                        <a href="formulario.html" class="btn btn-outline-primary">Comenzar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 precios-hover">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Premium</h3>
+                        <p class="card-text">Acceso a todas las clases teóricas y prácticas con soporte durante 6 meses.</p>
+                        <h4>99.99€</h4>
+                        <a href="formulario.html" class="btn btn-outline-primary">Comenzar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .pricing-section {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        padding: 50px 0; 
+        margin-bottom: 20px; /* Añadir espacio adicional en la parte inferior */
+    }
+   /* Animación de la sección de precios */
+    .pricing-section .card {
+        transition: transform 0.4s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        margin-bottom: 30px;
+    }
+
+    /* Efecto Hover Mejorado */
+    .pricing-section .card:hover {
+        transform: translateY(-10px) scale(1.05) rotate(2deg); /* Escala y ligera rotación */
+        opacity: 0.9; /* Reducir ligeramente la opacidad */
+        box-shadow: 0 6px 30px rgba(253, 134, 179, 0.4); /* Sombra más intensa */
+        
+    }
+
+    /* Ajustes para la sección de promoción */
+    #promocion .card {
+        background-color: rgb(253, 134, 179);
+        color: white;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    }
+
+    #promocion .card:hover {
+        transform: translateY(-10px) scale(1.05) rotate(2deg);
+        opacity: 0.9;
+        box-shadow: 0 6px 30px rgba(253, 134, 179, 0.5);
+    }
+
+    /* Asegúrate de que en dispositivos pequeños las tarjetas mantengan la separación */
+    @media (max-width: 768px) { 
+        .pricing-section .card {
+            margin-bottom: 30px;
+        }
+    }
+
+    
+</style>

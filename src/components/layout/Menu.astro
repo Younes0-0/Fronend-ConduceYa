@@ -1,0 +1,97 @@
+---
+import { getSession } from "auth-astro/server";
+const props = Astro.props;
+
+const sesion = await getSession(Astro.request);
+const services = [
+  { name: "Motos", url: "/permisos/permisoA" },
+  { name: "Coche", url: "/permisos/permisoB" },
+  { name: "Camión", url: "/permisos/permisoC" },
+  { name: "Formulario", url: "/login/formulario" },
+  { name: "Perfil", url: "/perfil" }
+];
+
+---
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fs-3 fw-bold text-primary" href="/">
+                <img src={props.imageSrc} height="50" alt={props.imageAlt || "Logo de la autoescuela"}>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {
+                        services.map(service => (
+                            <li class="nav-item">
+                                <a class="nav-link text-primary fw-medium" href={service.url}>{service.name}</a>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <!-- Buscador de servicios -->
+                <div class="search-container position-relative">
+                    <input id="searchInput" class="form-control border-primary shadow-sm" type="search" placeholder="Buscar servicio..." aria-label="Buscar">
+                    <div id="searchResults" class="search-results position-absolute bg-white shadow rounded"></div>
+                </div>
+                {
+                    sesion ? (
+                        <div class="header-icons ms-3">
+                            <a href="/perfil" class="text-primary" aria-label="Perfil">
+                                <img 
+                                    src={sesion.user?.image} 
+                                    alt="Imagen de perfil" 
+                                    class="rounded-circle" 
+                                    width="38" 
+                                    height="38"
+                                />
+                            </a>
+                        </div>
+                    ) : (
+                        <div class="header-icons ms-3">
+                            <a href="/login" class="text-primary" aria-label="Iniciar sesión">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
+                                    <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    )
+                }
+                
+            </div>
+        </div>
+    </nav>          
+</header>
+
+
+
+<style is:global>
+    .search-container {
+        width: 250px;
+    }
+    .search-results {
+        width: 100%;
+        display: none;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        z-index: 10;
+        animation: fadeIn 0.2s ease-in-out;
+    }
+    .list-group-item {
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .list-group-item:hover {
+        background-color: #e9f5ff;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

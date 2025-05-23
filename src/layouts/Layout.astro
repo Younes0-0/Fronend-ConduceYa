@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+		<title>ConduceYa - Tu autoescuela online</title>
 	</head>
 	<body>
 		<slot />
@@ -13,10 +13,129 @@
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+	@view-transition {
+    navigation: auto;
 	}
+
+	:root {
+		--primary-color: #007bff;
+		--info-color: #17a2b8;
+		--light-color: #f8f9fa;
+		--dark-color: #2c3a47;
+	}
+
+	body {
+		font-family: 'Roboto', 'sans-serif'; 
+	}
+	h1,h2,h3,h3,h5{
+		font-family: 'Nunito','sans-serif';
+	}
+	a{
+		font-family: 'Nunito','sans-serif';
+	}
+
+	header {
+		background-color: var(--light-color);
+		
+	}
+
+	footer {
+		background-color: var(--dark-color);
+		color: var(--light-color);
+	}
+
+	footer a {
+		color: var(--light-color);
+	}
+	/* Estilo base para todos los iconos */
+	a[aria-label] svg {
+		transition: transform 0.3s ease, fill 0.3s ease;
+		fill: #fff8f8; /* Color inicial de los iconos */
+	}
+
+	a[aria-label]:hover svg {
+		transform: scale(1.3); /* Efecto de escala */
+	}
+
+	/* Colores específicos para cada red social */
+	a[aria-label="Facebook"]:hover svg {
+		fill: #0866ff; /* Azul de Facebook */
+	}
+
+	a[aria-label="Twitter"]:hover svg {
+		fill: #03a9f4; /* Azul de Twitter */
+	}
+
+	a[aria-label="Instagram"]:hover svg {
+		fill: #fc136b; /* Magenta de Instagram */
+	}
+
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 15px;
+	}
+	.footer-links a {
+		color: #fff8f8;
+		
+		transition: color 0.3s ease;
+	}
+	.footer-links a:hover {
+		color: #A4C6F9;
+		fill: #fc136b;
+	}
+
+	.navbarContent{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 2rem;
+		background-color: var(--light-color);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+	.nav-link:hover{
+		color: red;
+	}
+	/* Animación para hacer que un elemento aparezca desde abajo con un efecto de desvanecimiento */
+	@keyframes fadeInUp {
+		from {
+			opacity: 0; /* El elemento comienza completamente transparente */
+			transform: translateY(20px); /* Inicia desplazado 20px hacia abajo */
+		}
+		to {
+			opacity: 1; /* Se vuelve completamente visible */
+			transform: translateY(0); /* Se coloca en su posición original */
+		}
+	}
+
+	/* Clase para aplicar la animación fadeInUp */
+	.fade-in-up {
+		animation: fadeInUp 0.5s ease-out; /* La animación dura 0.5s con un efecto de desaceleración */
+	}
+
+	/* Animación para deslizar un elemento desde abajo */
+	@keyframes slideInFromBottom {
+		0% {
+			transform: translateY(100%); /* Inicia fuera de la pantalla, en la parte inferior */
+			opacity: 0; /* Comienza transparente */
+		}
+		100% {
+			transform: translateY(0); /* Se coloca en su posición original */
+			opacity: 1; /* Se vuelve completamente visible */
+		}
+	}
+
+	/* Aplicación de la animación slideInFromBottom al footer */
+	footer {
+		animation: slideInFromBottom 0.5s ease-out; /* Desliza hacia arriba con una desaceleración suave */
+	}
+
+	/* Efecto de escala y rotación en iconos SVG al pasar el ratón por encima del enlace */
+	a[aria-label]:hover svg {
+		transform: scale(1.3) rotate(360deg); /* Aumenta el tamaño un 30% y gira 360 grados */
+		transition: transform 0.5s ease-in-out; /* Transición suave de medio segundo */
+	}
+
+
 </style>
