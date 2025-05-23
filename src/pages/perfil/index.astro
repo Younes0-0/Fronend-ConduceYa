@@ -55,7 +55,7 @@ const usuario = {
 <Layout title="Mi Perfil">
   <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
   <Hero 
-    title={usuario.nombre}
+    title={session.user?.name || usuario.nombre}
     subtitle={usuario.role}
     buttonText="Editar Perfil"
     buttonLink="/editar-perfil"
@@ -69,7 +69,7 @@ const usuario = {
         <div class="info-personal">
           <div class="campo">
             <span class="etiqueta">Email:</span>
-            <span>{usuario.email}</span>
+            <span>{session.user?.email || usuario.email}</span>
           </div>
           <div class="campo">
             <span class="etiqueta">Teléfono:</span>
