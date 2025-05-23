@@ -1,6 +1,6 @@
-import { c as createComponent, f as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_VTlEXlHS.mjs';
-import { $ as $$Layout } from '../../chunks/Layout_CCVJu0Mz.mjs';
-import { $ as $$Menu, a as $$Footer } from '../../chunks/Footer_R9lhjvII.mjs';
+import { c as createComponent, f as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_Ddgsiow-.mjs';
+import { $ as $$Layout } from '../../chunks/Layout_CitvV8Hb.mjs';
+import { $ as $$Menu, a as $$Footer } from '../../chunks/Footer_sl-iXt9q.mjs';
 /* empty css                                         */
 export { renderers } from '../../renderers.mjs';
 

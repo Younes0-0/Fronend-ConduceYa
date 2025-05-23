@@ -1,4 +1,4 @@
-import { c as createComponent, d as renderHead, e as renderSlot, r as renderTemplate } from './astro/server_VTlEXlHS.mjs';
+import { c as createComponent, d as renderHead, e as renderSlot, r as renderTemplate } from './astro/server_Ddgsiow-.mjs';
 /* empty css                         */
 
 const $$Layout = createComponent(($$result, $$props, $$slots) => {

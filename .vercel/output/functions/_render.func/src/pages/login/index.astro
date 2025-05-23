@@ -17,6 +17,7 @@ if (Astro.request.method === "POST") {
     const form = await Astro.request.formData();
     const username = form.get("username");
     const password = form.get("password");
+    //[TODO] CAMBIAR A LA URL DEL BACKEND
     const response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: {
@@ -68,8 +69,8 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <SignIn class="btn btn-danger w-100 mx-1" property="google" id="google">Google</SignIn>
-                <SignIn class="btn btn-dark w-100 mx-1" property="github" id="github">Github</SignIn>
+                <SignIn class="btn btn-danger w-100 mx-1"  property="google" id="google">Google</SignIn>
+                <SignIn class="btn btn-dark w-100 mx-1"  property="github" id="github">Github</SignIn>
                 <!--
                     <button class="btn btn-primary w-100 mx-1" type="button">Facebook</button>
                 --> 
@@ -80,6 +81,9 @@ if (Astro.request.method === "POST") {
     <Footer />
 </Layout>
 
+<script>
+
+</script>
 
 <style is:global>
     .login-bg {
