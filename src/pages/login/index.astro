@@ -82,7 +82,19 @@ if (Astro.request.method === "POST") {
 </Layout>
 
 <script>
+    const google = document.getElementById("google");
+    const github = document.getElementById("github");
 
+    if (google) {
+        google.addEventListener("click", () => {
+            window.location.href = "/auth/google";
+        });
+    }
+    if (github) {
+        github.addEventListener("click", () => {
+            window.location.href = "/auth/github";
+        });
+    }
 </script>
 
 <style is:global>
