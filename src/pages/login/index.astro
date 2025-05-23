@@ -3,6 +3,8 @@ import Layout from '@layouts/Layout.astro';
 import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import {getSession} from "auth-astro/server";
+import { SignIn , SignOut } from 'auth-astro/components';
+
 
 const session = await getSession(Astro.request);
 if (session) {
@@ -66,10 +68,8 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-danger w-100 mx-1" type="button" id="google">Google</button>
-                <button class="btn btn-dark w-100 mx-1" type="button" id="github">GitHub</button>
-                <button class="btn btn-primary w-100 mx-1" type="button" id="facebook">Facebook</button>
-               
+                <SignIn class="btn btn-danger w-100 mx-1">Google</SignIn>
+                <SignIn class="btn btn-dark w-100 mx-1">Github</SignIn>
                 <!--
                     <button class="btn btn-primary w-100 mx-1" type="button">Facebook</button>
                 --> 
