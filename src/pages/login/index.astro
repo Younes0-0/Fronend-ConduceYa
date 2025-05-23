@@ -82,17 +82,23 @@ if (Astro.request.method === "POST") {
 </Layout>
 
 <script>
+import { SignIn } from "auth-astro/components";
+
     const google = document.getElementById("google");
     const github = document.getElementById("github");
 
     if (google) {
         google.addEventListener("click", () => {
-            window.location.href = "/auth/google";
+           SignIn({
+                provider: "google",
+            });
         });
     }
     if (github) {
         github.addEventListener("click", () => {
-            window.location.href = "/auth/github";
+           SignIn({
+                provider: "github",
+            });
         });
     }
 </script>
