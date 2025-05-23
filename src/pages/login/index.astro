@@ -69,11 +69,11 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <a href="/api/auth/signin/google" class="btn btn-danger w-100 mx-1">Google</a>
-                <a href="/api/auth/signin/github" class="btn btn-dark w-100 mx-1">GitHub</a>
+                <button id="login">Login</button>
+                <button id="logout">Logout</button>
                 <!--
-                <a href="/api/auth/signin/facebook" class="btn btn-primary w-100 mx-1">Facebook</a>
-                -->
+                    <button class="btn btn-primary w-100 mx-1" type="button">Facebook</button>
+                --> 
             </div>
         </section>
     </main>
@@ -81,7 +81,11 @@ if (Astro.request.method === "POST") {
     <Footer />
 </Layout>
 
-
+<script>
+    const { signIn, signOut } = await import("auth-astro/client")
+    document.querySelector("#login").onclick = () => signIn("github")
+    document.querySelector("#logout").onclick = () => signOut()
+</script>
 
 <style is:global>
     .login-bg {
