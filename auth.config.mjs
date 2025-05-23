@@ -13,5 +13,8 @@ export default defineConfig({
             clientSecret: import.meta.env.GITHUB_CLIENT_SECRET,
         }),
     ],
+    pages: {
+        signIn: "/login", // Página de login personalizada si usas una
+    },
 });
 // https://authjs.dev/reference/core/configuration
