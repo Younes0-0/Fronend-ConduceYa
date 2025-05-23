@@ -4,6 +4,8 @@ import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import {getSession} from "auth-astro/server";
 import { SignIn } from 'auth-astro/components';
+import Google from '@auth/core/providers/google';
+import GitHub from '@auth/core/providers/github';
 
 
 const session = await getSession(Astro.request);
@@ -68,9 +70,8 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <SignIn property="google" class="btn btn-danger w-100 mx-1" />
-                <SignIn class="btn btn-danger w-100 mx-1" property="google" id="google">Google</SignIn>
-                <SignIn class="btn btn-dark w-100 mx-1" property="github" id="github">Github</SignIn>
+                <SignIn class="btn btn-danger w-100 mx-1"  property={Google} id="google">Google</SignIn>
+                <SignIn class="btn btn-dark w-100 mx-1"  property={Google} id="github">Github</SignIn>
                 <!--
                     <button class="btn btn-primary w-100 mx-1" type="button">Facebook</button>
                 --> 
