@@ -11,14 +11,14 @@ export default defineConfig({
 
   // 🧩 Añade esto: 
   vite: {
-      resolve: {
-      alias: {
-          '@': './src',
-          '@components': '/src/components',
-          '@layouts': '/src/layouts',
-          '@pages': '/src/pages'
+    resolve: {
+    alias: {
+        '@': './src',
+        '@components': '/src/components',
+        '@layouts': '/src/layouts',
+        '@pages': '/src/pages'
       }
-      }
+    }
   },
 
   integrations: [auth()]
