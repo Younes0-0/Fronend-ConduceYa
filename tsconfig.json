@@ -1,9 +1,5 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": ["src/**/*",
-    "astro.config.*",
-    "astro-env.d.ts"],
-  "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -11,9 +7,8 @@
       "@components/*":["src/components/*"],
       "@layouts/*":   ["src/layouts/*"],
       "@pages/*":     ["src/pages/*"]
-    },
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "types": ["astro/client"]
+    }
   },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
 }
