@@ -68,7 +68,6 @@ if (Astro.request.method === "POST") {
                 
             </form>
             <div class="d-flex justify-content-between">
-                <SignIn property="google" class="btn btn-danger w-100 mx-1" />
                 <SignIn class="btn btn-danger w-100 mx-1" property="google" id="google">Google</SignIn>
                 <SignIn class="btn btn-dark w-100 mx-1" property="github" id="github">Github</SignIn>
                 <!--
@@ -81,9 +80,6 @@ if (Astro.request.method === "POST") {
     <Footer />
 </Layout>
 
-<script>
-
-</script>
 
 <style is:global>
     .login-bg {

@@ -1,0 +1,181 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+---
+
+<Layout>
+    <Menu imageSrc="./img/logo-letras.png" imageAlt="logo de ConduceYa" />
+
+    <main class="reservas-bg">
+        <section class="col-md-6 reservas-container">
+            <h2>📅 Reserva tu Clase de Conducción</h2>
+
+            <form id="reservaForm">
+                <div class="form-group">
+                    <label for="profesor">Instructor</label>
+                    <select id="profesor" name="profesor" required>
+                        <option value="">Selecciona un instructor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="hora">Horario</label>
+                    <select id="hora" name="hora" required>
+                        <option value="">Selecciona un horario</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">📌 Reservar Clase</button>
+                <p id="reservaMsg" class="msg"></p>
+            </form>
+        </section>
+
+        <section class="citas-container col-md-6">
+            <h3>📋 Tus Clases Reservadas</h3>
+            <ul id="citasList"></ul>
+        </section>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    /* 🌈 Fondo con degradado suave y efecto glassmorphism */
+    .reservas-bg {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* 📌 Contenedores con efecto floating glass */
+    .reservas-container, .citas-container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        max-width: 520px;
+        margin: 10px 0;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    /* 🎨 Titulares */
+    h2, h3 {
+        text-align: center;
+        font-size: 1.8rem;
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    /* 📄 Campos del formulario */
+    .form-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+        border-radius: 10px;
+        padding: 12px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: inset 4px 4px 8px rgba(255, 255, 255, 0.2), inset -4px -4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group input:focus, .form-group select:focus {
+        transform: scale(1.02);
+    }
+
+    /* 🔘 Botón estilizado */
+    .btn {
+        width: 100%;
+        background: #ff7eb3;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(255, 126, 179, 0.4);
+    }
+
+    .btn:hover {
+        background: #ff4e9d;
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(255, 78, 157, 0.5);
+    }
+
+    /* 💡 Mensaje de reserva */
+    .msg {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        margin-top: 10px;
+    }
+
+    /* 📜 Lista de citas reservadas */
+    #citasList {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+    }
+
+    #citasList li {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    #citasList li:hover {
+        background: #ffdfd4;
+        transform: scale(1.03);
+    }
+
+    /* ✨ Animación */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+
+
+    
+
+
