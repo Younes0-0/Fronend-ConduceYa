@@ -3,7 +3,7 @@ import Layout from '@layouts/Layout.astro';
 import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import Hero from '@components/permisos/Hero.astro';
-import {SignOut} from 'auth-astro/components';
+import { SignOut } from 'auth-astro/components';
 import { getSession } from "auth-astro/server";
 const session = await getSession(Astro.request);
 
@@ -51,7 +51,6 @@ const usuario = {
 };
 ---
 
-
 <Layout title="Mi Perfil">
   <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
   <Hero 
@@ -61,234 +60,101 @@ const usuario = {
     buttonLink="/editar-perfil"
     imageSrc="./img/hero-image.jpg"
   />
-  <main class="perfil-container">
-    
-    <section class="perfil-grid">
-      <article class="seccion">
-        <h2>Información Personal</h2>
-        <div class="info-personal">
-          <div class="campo">
-            <span class="etiqueta">Email:</span>
-            <span>{session.user?.email || usuario.email}</span>
-          </div>
-          <div class="campo">
-            <span class="etiqueta">Teléfono:</span>
-            <span>{usuario.telefono}</span>
-          </div>
-          <div class="campo">
-            <span class="etiqueta">Fecha de registro:</span>
-            <span>{new Date(usuario.date_joined).toLocaleDateString('es-ES')}</span>
-          </div>
-          <div class="campo">
-            <span class="etiqueta">Tipo de usuario:</span>
-            <span class="tipo-usuario">{usuario.role}</span>
+  <main class="container py-4">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h2 class="card-title h5 border-bottom pb-2 mb-3 text-primary">Información Personal</h2>
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <strong class="text-secondary">Email:</strong> {session.user?.email || usuario.email}
+              </li>
+              <li class="mb-2">
+                <strong class="text-secondary">Teléfono:</strong> {usuario.telefono}
+              </li>
+              <li class="mb-2">
+                <strong class="text-secondary">Fecha de registro:</strong> {new Date(usuario.date_joined).toLocaleDateString('es-ES')}
+              </li>
+              <li class="mb-2">
+                <strong class="text-secondary">Tipo de usuario:</strong>
+                <span class="badge bg-info text-dark ms-2 text-capitalize">{usuario.role}</span>
+              </li>
+            </ul>
           </div>
         </div>
-      </article>
+      </div>
 
-      <article class="seccion">
-        <h2>Progreso</h2>
-        <div class="progreso">
-          <div class="barra-progreso">
-            <div class="progreso-completado" style={`width: ${usuario.progresoTeorico}%`}>
-              <span>{usuario.progresoTeorico}%</span>
-            </div>
-          </div>
-          <p>Clases completadas: <span>{usuario.clasesCompletadas}</span></p>
-          <p>Clases restantes: <span>{100 - usuario.progresoTeorico}%</span></p>
-          <SignOut class="btn btn-primary btn-lg">Cerrar sesión</SignOut>
-        </div>
-      </article>
-
-      <article class="seccion">
-        <h2>Próximas Clases</h2>
-        <div class="lista-clases">
-          {usuario.proximasClases.map(clase => (
-            <div>
-              <div class="clase-card">
-                <div class="clase-info">
-                  <strong>{clase.fecha}</strong>
-                  <span>{clase.hora}</span>
-                </div>
-                <div class="clase-detalles">
-                  <p>Instructor: {clase.instructor}</p>
-                  <p>Tipo: {clase.tipo}</p>
+      <div class="col-md-6">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h2 class="card-title h5 border-bottom pb-2 mb-3 text-primary">Progreso</h2>
+            <div class="mb-3">
+              <div class="progress" style="height: 1.5rem;">
+                <div 
+                  class="progress-bar progress-bar-striped bg-primary fw-bold" 
+                  style={`width: ${usuario.progresoTeorico}%`}
+                  role="progressbar" 
+                  aria-valuenow={usuario.progresoTeorico} 
+                  aria-valuemin="0" 
+                  aria-valuemax="100"
+                >
+                  {usuario.progresoTeorico}%
                 </div>
               </div>
-              <button class="btn-cancelar" disabled>Cancelar</button>
             </div>
-          ))}
+            <p>Clases completadas: <span class="fw-bold">{usuario.clasesCompletadas}</span></p>
+            <p>Clases restantes: <span class="fw-bold">{100 - usuario.progresoTeorico}%</span></p>
+            <SignOut class="btn btn-outline-primary w-100 mt-3">Cerrar sesión</SignOut>
+          </div>
         </div>
-      </article>
+      </div>
 
-      <article class="seccion">
-        <h2>Historial de Clases</h2>
-        <div class="lista-clases">
-          {usuario.historialClases.map((clase, index) => (
-            <div class="clase-card historico">
-              <div class="clase-info">
-                <strong>{clase.fecha}</strong>
-                <span class="estado">{clase.estado}</span>
-              </div>
-              <div class="clase-detalles">
-                <p>Instructor: {clase.instructor}</p>
-                <p>Tipo: {clase.tipo}</p>
-              </div>
-            </div>
-          ))}
+      <div class="col-md-6">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h2 class="card-title h5 border-bottom pb-2 mb-3 text-primary">Próximas Clases</h2>
+            <ul class="list-group">
+              {usuario.proximasClases.map(clase => (
+                <li class="list-group-item d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+                  <div>
+                    <span class="fw-semibold me-3">{clase.fecha}</span>
+                    <span class="badge bg-secondary me-2">{clase.hora}</span>
+                  </div>
+                  <div>
+                    <span class="me-2 text-muted">Instructor: <span class="fw-medium">{clase.instructor}</span></span>
+                    <span class="me-2 text-muted">Tipo: <span class="fw-medium">{clase.tipo}</span></span>
+                  </div>
+                  <button class="btn btn-danger btn-sm ms-md-2 mt-2 mt-md-0" disabled>Cancelar</button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </article>
-    </section>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h2 class="card-title h5 border-bottom pb-2 mb-3 text-primary">Historial de Clases</h2>
+            <ul class="list-group">
+              {usuario.historialClases.map(clase => (
+                <li class="list-group-item d-flex flex-column flex-md-row align-items-md-center justify-content-between bg-light">
+                  <div>
+                    <span class="fw-semibold me-3">{clase.fecha}</span>
+                    <span class="badge bg-success me-2">{clase.estado}</span>
+                  </div>
+                  <div>
+                    <span class="me-2 text-muted">Instructor: <span class="fw-medium">{clase.instructor}</span></span>
+                    <span class="me-2 text-muted">Tipo: <span class="fw-medium">{clase.tipo}</span></span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <Footer/>
 </Layout>
-
-
-<style>
-  body {
-    background-color: #f3f4f6;
-    color: #374151;
-  }
-  .perfil-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  .perfil-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-
-  .perfil-info h1 {
-    color: #1f2937;
-    margin-bottom: 0.5rem;
-  }
-
-  .tipo-usuario {
-    color: #6b7280;
-    text-transform: capitalize;
-  }
-
-
-  .perfil-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .seccion {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .seccion h2 {
-    color: #1f2937;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 0.5rem;
-  }
-
-  .info-personal .campo {
-    display: flex;
-    margin-bottom: 1rem;
-  }
-
-  .etiqueta {
-    font-weight: 500;
-    width: 150px;
-    color: #6b7280;
-  }
-
-  .barra-progreso {
-    background: #e5e7eb;
-    border-radius: 1rem;
-    height: 1.5rem;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-
-  .progreso-completado {
-    background: var(--primary-color);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 0.875rem;
-    transition: width 0.3s ease;
-  }
-
-  .lista-clases {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .clase-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .clase-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .clase-detalles {
-    color: #6b7280;
-  }
-
-  .btn-cancelar {
-    background-color: #ef4444;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  .btn-cancelar:hover {
-    background-color: #dc2626;
-  }
-
-  .historico {
-    background: #f9fafb;
-  }
-
-  .estado {
-    color: #10b981;
-    font-size: 0.875rem;
-  }
-
-  @media (max-width: 768px) {
-    .perfil-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .clase-card {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-    }
-  }
-
-  .loading-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    font-size: 1.2rem;
-    color: #6b7280;
-  }
-</style>
