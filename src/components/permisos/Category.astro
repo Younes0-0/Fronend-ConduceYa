@@ -6,6 +6,7 @@ interface CategoryProps {
   image: string;
   imageAlt: string;
   reverse?: boolean; // Opción predeterminada: false
+  style?: string; // Estilo opcional para la imagen
 }
 
 // Definir `props` correctamente con tipado explícito
@@ -17,7 +18,7 @@ const rowClass = props.reverse ? "row category text-center flex-row-reverse mb-4
 
 <div class={rowClass}>
   <div class="col-md-6 d-flex justify-content-center">
-    <img src={props.image} class="img-fluid rounded" alt={props.imageAlt} />
+    <img src={props.image} class={`img-fluid rounded ${props.style}`} alt={props.imageAlt} />
   </div>
   <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
     <h3 class="mt-sm-4">{props.title}</h3>
