@@ -1,0 +1,74 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+// Datos de ejemplo para el select
+const alumnos = [
+  { id: 1, nombre: "Laura Sánchez" },
+  { id: 2, nombre: "Juan López" },
+  { id: 3, nombre: "Lucía Torres" }
+];
+const profesores = [
+  { id: 1, nombre: "Carlos Martínez" },
+  { id: 2, nombre: "Eva García" }
+];
+const tipos = ["Pista", "Circulación", "Teórica"];
+---
+
+<Layout title="Nueva Clase Práctica">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h1 class="mb-4 text-primary fw-bold">Nueva Clase Práctica</h1>
+            <form method="POST" action="/admin/practicas/crear">
+              <div class="mb-3">
+                <label for="alumno" class="form-label">Alumno</label>
+                <select required class="form-select" id="alumno" name="alumno">
+                  <option value="">Selecciona un alumno</option>
+                  {alumnos.map(alumno => (
+                    <option value={alumno.id}>{alumno.nombre}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="profesor" class="form-label">Profesor</label>
+                <select required class="form-select" id="profesor" name="profesor">
+                  <option value="">Selecciona un profesor</option>
+                  {profesores.map(profesor => (
+                    <option value={profesor.id}>{profesor.nombre}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input required type="date" class="form-control" id="fecha" name="fecha" />
+              </div>
+              <div class="mb-3">
+                <label for="hora" class="form-label">Hora</label>
+                <input required type="time" class="form-control" id="hora" name="hora" />
+              </div>
+              <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo de clase</label>
+                <select required class="form-select" id="tipo" name="tipo">
+                  <option value="">Selecciona el tipo</option>
+                  {tipos.map(tipo => (
+                    <option value={tipo}>{tipo}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="d-flex justify-content-end gap-2">
+                <a href="/admin/practicas" class="btn btn-outline-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Clase</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer/>
+</Layout>
