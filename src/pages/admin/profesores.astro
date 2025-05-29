@@ -1,0 +1,53 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+const profesores = [
+  { id: 1, nombre: "Carlos Martínez", email: "carlos.martinez@example.com", telefono: "611998877", fecha_alta: "2023-12-01", estado: "Activo", clases_asignadas: 22 },
+  { id: 2, nombre: "Eva García", email: "eva.garcia@example.com", telefono: "611234567", fecha_alta: "2024-01-15", estado: "Activo", clases_asignadas: 15 },
+  { id: 3, nombre: "Pedro Ruiz", email: "pedro.ruiz@example.com", telefono: "611888999", fecha_alta: "2024-04-20", estado: "Baja", clases_asignadas: 0 }
+];
+---
+
+<Layout title="Gestión de Profesores">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <h1 class="mb-4 text-primary fw-bold">Gestión de Profesores</h1>
+    <p class="mb-3 text-secondary">Administra profesores, asignaciones, horarios y datos.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th><th>Nombre</th><th>Email</th><th>Teléfono</th>
+            <th>Fecha de Alta</th><th>Estado</th><th>Clases Asignadas</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {profesores.map(profesor => (
+            <tr>
+              <td>{profesor.id}</td>
+              <td>{profesor.nombre}</td>
+              <td>{profesor.email}</td>
+              <td>{profesor.telefono}</td>
+              <td>{profesor.fecha_alta}</td>
+              <td>
+                <span class={`badge ${profesor.estado === 'Activo' ? 'bg-success' : 'bg-secondary'}`}>
+                  {profesor.estado}
+                </span>
+              </td>
+              <td>{profesor.clases_asignadas}</td>
+              <td>
+                <a href={`/admin/profesores/${profesor.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
+                <a href={`/admin/profesores/${profesor.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                <button class="btn btn-sm btn-outline-danger" disabled>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a href="/admin/profesores/nuevo" class="btn btn-primary mt-3">Añadir Profesor</a>
+  </main>
+  <Footer/>
+</Layout>

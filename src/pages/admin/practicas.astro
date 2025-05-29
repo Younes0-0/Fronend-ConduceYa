@@ -1,0 +1,57 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+const practicas = [
+  { id: 1, alumno: "Laura Sánchez", profesor: "Carlos Martínez", fecha: "2024-05-20", hora: "10:00", tipo: "Pista", estado: "Realizada" },
+  { id: 2, alumno: "Juan López", profesor: "Eva García", fecha: "2024-05-22", hora: "12:30", tipo: "Circulación", estado: "Pendiente" },
+  { id: 3, alumno: "Lucía Torres", profesor: "Carlos Martínez", fecha: "2024-05-23", hora: "09:00", tipo: "Teórica", estado: "Cancelada" }
+];
+---
+
+<Layout title="Clases Prácticas">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <h1 class="mb-4 text-primary fw-bold">Clases Prácticas</h1>
+    <p class="mb-3 text-secondary">Gestiona y revisa las clases prácticas, sesiones y asignaciones.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th><th>Alumno</th><th>Profesor</th><th>Fecha</th>
+            <th>Hora</th><th>Tipo</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {practicas.map(practica => (
+            <tr>
+              <td>{practica.id}</td>
+              <td>{practica.alumno}</td>
+              <td>{practica.profesor}</td>
+              <td>{practica.fecha}</td>
+              <td>{practica.hora}</td>
+              <td>{practica.tipo}</td>
+              <td>
+                <span class={`badge ${
+                  practica.estado === 'Realizada' ? 'bg-success' :
+                  practica.estado === 'Pendiente' ? 'bg-warning text-dark' :
+                  'bg-danger'
+                }`}>
+                  {practica.estado}
+                </span>
+              </td>
+              <td>
+                <a href={`/admin/practicas/${practica.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
+                <a href={`/admin/practicas/${practica.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                <button class="btn btn-sm btn-outline-danger" disabled>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a href="/admin/practicas/nueva" class="btn btn-primary mt-3">Nueva Clase Práctica</a>
+  </main>
+  <Footer/>
+</Layout>
