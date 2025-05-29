@@ -8,7 +8,7 @@ import { getSession } from "auth-astro/server";
 const session = await getSession(Astro.request);
 
 if (!session) {
-  return Astro.redirect("/login");
+  return Astro.redirect("/admin-dashboard");
 }
 const usuario = {
   nombre: "Laura Sánchez",

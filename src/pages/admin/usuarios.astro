@@ -3,16 +3,28 @@ import Layout from '@layouts/Layout.astro';
 import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 
+const TOKEN = Astro.cookies.get('jwt_token')?.value || '';
+
+if (!TOKEN) {
+  return Astro.redirect('/login');
+}
 
 
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4NTIyODgxLCJpYXQiOjE3NDg1MTkyODEsImp0aSI6IjMxY2IzNmUwOGZjYjQxY2JhZWZmMGMwZDU5ZWY4NzgzIiwidXNlcl9pZCI6MX0.h-NAFeVsU8YUtS_ijop16Lv5SMo24g6IS5o60GznfGM";
 
-const res = await fetch('http://localhost:8000/api/usuarios/users/', {
+const url = new URL(Astro.request.url);
+const page = url.searchParams.get('page') ?? 1;
+
+const res = await fetch(`http://localhost:8000/api/usuarios/users/?page=${page}`, {
   headers: {
     'Authorization': `Bearer ${TOKEN}`
   }
 });
-const usuarios1 = await res.json();
+const data = await res.json();
+const usuarios = data.results;
+const next = data.next; // Si hay más páginas, Django da la URL
+const nextPage = next
+  ? new URL(next).searchParams.get('page')
+  : null;
 ---
 
 <Layout title="Gestión de Usuarios">
@@ -33,7 +45,7 @@ const usuarios1 = await res.json();
           </tr>
         </thead>
         <tbody>
-          {usuarios1.results.map((usuario: { id: Number; username: String; first_name: String; last_name: String; rol: String; }) => (
+          {usuarios.map((usuario: { id: unknown; username: unknown; first_name: unknown; last_name: unknown; rol: unknown; }) => (
             <tr>
               <td>{usuario.id}</td>
               <td>{usuario.username}</td>
@@ -61,7 +73,17 @@ const usuarios1 = await res.json();
         </tbody>
       </table>
     </div>
-    <a href="/admin/usuarios/nuevo" class="btn btn-primary mt-3">Añadir Usuario</a>
+    <div class="d-flex justify-content-center gap-3 my-4">
+      {nextPage &&
+        <a href={`?page=${nextPage}`} class="btn btn-outline-primary btn-lg">
+          Mostrar más usuarios
+        </a>
+      }
+      <a href="/admin/usuarios/nuevo" class="btn btn-primary btn-lg">
+        Añadir Usuario
+      </a>
+    </div>
+
   </main>
   <Footer/>
 </Layout>

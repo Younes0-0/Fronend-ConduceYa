@@ -4,8 +4,6 @@ import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import Hero from '@components/permisos/Hero.astro';
 import { SignOut } from 'auth-astro/components';
-import { getSession } from "auth-astro/server";
-const session = await getSession(Astro.request);
 //TODO: Implementar autenticación y autorización real
 
 const usuario = {
@@ -154,7 +152,7 @@ const funcionesAdmin = [
                 <div class="text-muted small">Profesores activos</div>
               </div>
             </div>
-            <SignOut class="btn btn-outline-primary w-100 mt-2">Cerrar sesión</SignOut>
+            <button class="btn btn-outline-primary w-100 mt-2">Cerrar sesión</button>
           </div>
         </div>
       </div>
