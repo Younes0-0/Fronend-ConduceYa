@@ -3,11 +3,16 @@ import Layout from '@layouts/Layout.astro';
 import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 
-const usuarios = [
-  { id: 1, nombre: "Laura Sánchez", email: "laura.sanchez@example.com", telefono: "612345678", fecha_registro: "2024-11-15", role: "alumno", estado: "Activo" },
-  { id: 2, nombre: "Miguel Admin", email: "miguel.admin@example.com", telefono: "600112233", fecha_registro: "2023-09-10", role: "admin", estado: "Activo" },
-  { id: 3, nombre: "Carlos Martínez", email: "carlos.martinez@example.com", telefono: "611998877", fecha_registro: "2024-04-01", role: "profesor", estado: "Pendiente" }
-];
+
+
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4NTIyODgxLCJpYXQiOjE3NDg1MTkyODEsImp0aSI6IjMxY2IzNmUwOGZjYjQxY2JhZWZmMGMwZDU5ZWY4NzgzIiwidXNlcl9pZCI6MX0.h-NAFeVsU8YUtS_ijop16Lv5SMo24g6IS5o60GznfGM";
+
+const res = await fetch('http://localhost:8000/api/usuarios/users/', {
+  headers: {
+    'Authorization': `Bearer ${TOKEN}`
+  }
+});
+const usuarios1 = await res.json();
 ---
 
 <Layout title="Gestión de Usuarios">
@@ -19,32 +24,37 @@ const usuarios = [
       <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
         <thead class="table-light">
           <tr>
-            <th>ID</th><th>Nombre</th><th>Email</th><th>Teléfono</th>
-            <th>Fecha de Registro</th><th>Rol</th><th>Estado</th><th>Acciones</th>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Rol</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {usuarios.map(usuario => (
+          {usuarios1.results.map((usuario: { id: Number; username: String; first_name: String; last_name: String; rol: String; }) => (
             <tr>
               <td>{usuario.id}</td>
-              <td>{usuario.nombre}</td>
-              <td>{usuario.email}</td>
-              <td>{usuario.telefono}</td>
-              <td>{usuario.fecha_registro}</td>
+              <td>{usuario.username}</td>
+              <td>{usuario.first_name}</td>
+              <td>{usuario.last_name}</td>
               <td>
-                <span class={`badge ${usuario.role === 'admin' ? 'bg-warning text-dark' : usuario.role === 'profesor' ? 'bg-info text-dark' : 'bg-primary'}`}>
-                  {usuario.role.charAt(0).toUpperCase() + usuario.role.slice(1)}
-                </span>
-              </td>
-              <td>
-                <span class={`badge ${usuario.estado === 'Activo' ? 'bg-success' : 'bg-secondary'}`}>
-                  {usuario.estado}
+                <span class={`badge ${
+                  usuario.rol === 'admin' ? 'bg-warning text-dark' :
+                  usuario.rol === 'profesor' ? 'bg-info text-dark' :
+                  'bg-primary'
+                }`}>
+                  {usuario.rol === 'admin' ? 'Admin' :
+                   usuario.rol === 'profesor' ? 'Profesor' :
+                   usuario.rol === 'A' ? 'Alumno' :
+                   usuario.rol}
                 </span>
               </td>
               <td>
                 <a href={`/admin/usuarios/${usuario.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
                 <a href={`/admin/usuarios/${usuario.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
-                <button class="btn btn-sm btn-outline-danger" >Eliminar</button>
+                <button class="btn btn-sm btn-outline-danger">Eliminar</button>
               </td>
             </tr>
           ))}
