@@ -95,8 +95,8 @@ if (Astro.request.method === "POST") {
 
 <script>
     const { signIn } = await import("auth-astro/client")
-    document.querySelector("#google").onclick = () => signIn("google")
-    document.querySelector("#github").onclick = () => signIn("github")
+    document.querySelector("#google")?.addEventListener("click", () => signIn("google"));
+    document.querySelector("#github")?.addEventListener("click", () => signIn("github"));
    
 </script>
 
