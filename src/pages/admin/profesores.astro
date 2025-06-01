@@ -33,9 +33,10 @@ interface Profesor {
 let profesores: Profesor[] = [];
 
 try {
-  const apiUrl = `https://backend-conduceya.onrender.com/api/usuarios/profesores/`;
+  const apiUrl = `https://backend-conduceya.onrender.com/api/v1/profesores/`;
   const data = await authFetch(Astro, apiUrl);
-  profesores = data.results as Profesor[];
+  const typedData = data as { results: Profesor[] };
+  profesores = typedData.results;
 } catch (e) {
   const error = e as Error;
   if (error.message === 'NO_TOKEN' || error.message === 'UNAUTHORIZED') {
@@ -88,9 +89,17 @@ try {
                 </ul>
               </td>
               <td>
-                <a href={`/admin/profesores/${profesor.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
-                <a href={`/admin/profesores/${profesor.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
-                <button class="btn btn-sm btn-outline-danger" disabled>Eliminar</button>
+               <a target="_blank"
+                   href={`https://backend-conduceya.onrender.com/admin/usuarios/profesor/${profesor.id}/change/`}
+                   class="btn btn-sm btn-outline-primary me-2">Ver</a>
+
+                <a target="_blank"
+                   href={`https://backend-conduceya.onrender.com/admin/usuarios/profesor/${profesor.id}/change/`}
+                   class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+
+                <a target="_blank"
+                   href={`https://backend-conduceya.onrender.com/admin/usuarios/profesor/${profesor.id}/delete/`}
+                   class="btn btn-sm btn-outline-danger">Eliminar</a>
               </td>
             </tr>
           ))}
