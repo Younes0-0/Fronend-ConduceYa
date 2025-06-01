@@ -1,7 +1,7 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import Menu from '@components/layout/Menu.astro';
-import Footer from '@components/layout/Footer.astro';
+import Layout   from '@layouts/Layout.astro';
+import Menu     from '@components/layout/Menu.astro';
+import Footer   from '@components/layout/Footer.astro';
 import { authFetch } from '@/utils/authFetch';
 
 const existingToken = Astro.cookies.get('jwt_token')?.value;
@@ -10,83 +10,103 @@ if (!existingToken) {
 }
 
 
-let usuarios = [];
-let nextPage = null;
+interface Alumno {
+  id: number;
+  usuario: {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+    rol: 'A' | 'P' | 'AD';
+  };
+}
+
+let usuarios: Alumno[] = [];
+let nextPage: number | null = null;
 
 try {
-  const url = new URL(Astro.request.url);
-  const page = url.searchParams.get('page') ?? 1;
-  const apiUrl = `https://backend-conduceya.onrender.com/api/usuarios/users/?page=${page}`;
-  const data = await authFetch(Astro, apiUrl);
-  usuarios = data.results;
-  const next = data.next;
-  nextPage = next ? new URL(next).searchParams.get('page') : null;
-} catch (e) {
-  const error = e as Error;
-  if (error.message === 'NO_TOKEN' || error.message === 'UNAUTHORIZED') {
-    return Astro.redirect('/login');
+  const url  = new URL(Astro.request.url);
+  const page = Number(url.searchParams.get('page') || 1);
+
+  const API    = import.meta.env.PUBLIC_API_BASE ?? 'https://backend-conduceya.onrender.com';
+  const apiUrl = `${API}/api/v1/alumnos/?page=${page}`;
+
+  const data   = await authFetch<{ results: Alumno[]; next: string | null }>(Astro, apiUrl);
+
+  if (data) {
+    usuarios  = data.results;
+    nextPage  = data.next ? Number(new URL(data.next).searchParams.get('page')) : null;
   }
-  // Puedes mostrar un error genérico o manejar otros casos aquí
+
+} catch (e) {
+  const err = e as Error;
+  if (['NO_TOKEN', 'UNAUTHORIZED'].includes(err.message)) return Astro.redirect('/login');
+  console.error(err);
 }
 ---
 
 <Layout title="Gestión de Usuarios">
-  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa" />
+
   <main class="container py-4">
     <h1 class="mb-4 text-primary fw-bold">Gestión de Usuarios</h1>
     <p class="mb-3 text-secondary">Aquí puedes ver, crear, editar o eliminar alumnos y usuarios del sistema.</p>
+
     <div class="table-responsive">
       <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
         <thead class="table-light">
           <tr>
-            <th>ID</th>
-            <th>Usuario</th>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Rol</th>
-            <th>Acciones</th>
+            <th>ID</th><th>Usuario</th><th>Nombre</th><th>Apellidos</th><th>Rol</th><th>Acciones</th>
           </tr>
         </thead>
+
         <tbody>
-          {usuarios.map((usuario: { id: unknown; username: unknown; first_name: unknown; last_name: unknown; rol: unknown; }) => (
+          {usuarios.map((alumno ) => (
             <tr>
-              <td>{usuario.id}</td>
-              <td>{usuario.username}</td>
-              <td>{usuario.first_name}</td>
-              <td>{usuario.last_name}</td>
+              <td>{alumno.usuario.id}</td>
+              <td>{alumno.usuario.username}</td>
+              <td>{alumno.usuario.first_name}</td>
+              <td>{alumno.usuario.last_name}</td>
               <td>
                 <span class={`badge ${
-                  usuario.rol === 'admin' ? 'bg-warning text-dark' :
-                  usuario.rol === 'profesor' ? 'bg-info text-dark' :
-                  'bg-primary'
+                  alumno.usuario.rol === 'AD' ? 'bg-warning text-dark'
+                  : alumno.usuario.rol === 'P' ? 'bg-info text-dark'
+                  : 'bg-primary'
                 }`}>
-                  {usuario.rol === 'admin' ? 'Admin' :
-                   usuario.rol === 'profesor' ? 'Profesor' :
-                   usuario.rol === 'A' ? 'Alumno' :
-                   usuario.rol}
+                  {alumno.usuario.rol === 'AD' ? 'Admin'
+                  : alumno.usuario.rol === 'P' ? 'Profesor' : 'Alumno'}
                 </span>
               </td>
+
               <td>
-                <a href={`/admin/usuarios/${usuario.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
-                <a href={`/admin/usuarios/${usuario.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
-                <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                <a target="_blank"
+                   href={`https://backend-conduceya.onrender.com/admin/usuarios/alumno/${alumno.id}/change/`}
+                   class="btn btn-sm btn-outline-primary me-2">Ver</a>
+
+                <a target="_blank"
+                   href={`https://backend-conduceya.onrender.com/admin/usuarios/alumno/${alumno.id}/change/`}
+                   class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+
+                <a target="_blank"
+                   href={`https://backend-conduceya.onrender.com/admin/usuarios/alumno/${alumno.id}/delete/`}
+                   class="btn btn-sm btn-outline-danger">Eliminar</a>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+
     <div class="d-flex justify-content-center gap-3 my-4">
       {nextPage &&
         <a href={`?page=${nextPage}`} class="btn btn-outline-primary btn-lg">
           Mostrar más usuarios
-        </a>
-      }
+        </a>}
       <a href="/admin/usuarios/nuevo" class="btn btn-primary btn-lg">
         Añadir Usuario
       </a>
     </div>
-
   </main>
-  <Footer/>
+
+  <Footer />
 </Layout>
