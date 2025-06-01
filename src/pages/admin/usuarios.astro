@@ -10,7 +10,7 @@ let nextPage = null;
 try {
   const url = new URL(Astro.request.url);
   const page = url.searchParams.get('page') ?? 1;
-  const apiUrl = `http://localhost:8000/api/usuarios/users/?page=${page}`;
+  const apiUrl = `https://backend-conduceya.onrender.com/api/usuarios/users/?page=${page}`;
   const data = await authFetch(Astro, apiUrl);
   usuarios = data.results;
   const next = data.next;
