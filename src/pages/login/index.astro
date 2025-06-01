@@ -43,7 +43,7 @@ if (Astro.request.method === "POST") {
     });
 
     // Redirige tras login exitoso
-    return Astro.redirect("/admin-dashborard"); // O a /admin/usuarios si es admin
+    return Astro.redirect("/admin-dashboard"); // O a /admin/usuarios si es admin
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
