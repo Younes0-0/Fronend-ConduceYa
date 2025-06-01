@@ -4,6 +4,12 @@ import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import { authFetch } from '@/utils/authFetch';
 
+const existingToken = Astro.cookies.get('jwt_token')?.value;
+if (!existingToken) {
+  return Astro.redirect('/login');
+}
+
+
 let usuarios = [];
 let nextPage = null;
 

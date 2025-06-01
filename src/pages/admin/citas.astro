@@ -3,6 +3,12 @@ import Layout from '@layouts/Layout.astro';
 import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 
+const existingToken = Astro.cookies.get('jwt_token')?.value;
+if (!existingToken) {
+  return Astro.redirect('/login');
+}
+
+
 const citas = [
   { id: 1, alumno: "Laura Sánchez", fecha: "2024-06-01", hora: "09:00", tipo: "Examen Teórico", estado: "Confirmada" },
   { id: 2, alumno: "Juan López", fecha: "2024-06-03", hora: "11:00", tipo: "Clase Práctica", estado: "Pendiente" },

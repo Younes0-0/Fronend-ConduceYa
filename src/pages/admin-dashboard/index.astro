@@ -6,6 +6,12 @@ import Hero from '@components/permisos/Hero.astro';
 import { SignOut } from 'auth-astro/components';
 //TODO: Implementar autenticación y autorización real
 
+
+const existingToken = Astro.cookies.get('jwt_token')?.value;
+if (!existingToken) {
+  return Astro.redirect('/login');
+}
+
 const usuario = {
   nombre: "Younes Demraoui",
   role: "admin",
