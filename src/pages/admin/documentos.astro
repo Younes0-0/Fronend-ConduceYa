@@ -1,0 +1,55 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+const documentos = [
+  { id: 1, tipo: "DNI", usuario: "Laura Sánchez", fecha_subida: "2024-05-15", estado: "Verificado" },
+  { id: 2, tipo: "Permiso de Conducir", usuario: "Juan López", fecha_subida: "2024-05-18", estado: "Pendiente" },
+  { id: 3, tipo: "Justificante de Pago", usuario: "Lucía Torres", fecha_subida: "2024-05-19", estado: "Rechazado" }
+];
+---
+
+<Layout title="Documentos">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <h1 class="mb-4 text-primary fw-bold">Documentos</h1>
+    <p class="mb-3 text-secondary">Gestiona, revisa y sube documentos oficiales de alumnos y profesores.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th><th>Tipo</th><th>Usuario</th>
+            <th>Fecha de Subida</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {documentos.map(doc => (
+            <tr>
+              <td>{doc.id}</td>
+              <td>{doc.tipo}</td>
+              <td>{doc.usuario}</td>
+              <td>{doc.fecha_subida}</td>
+              <td>
+                <span class={`badge ${
+                  doc.estado === 'Verificado' ? 'bg-success' :
+                  doc.estado === 'Pendiente' ? 'bg-warning text-dark' :
+                  'bg-danger'
+                }`}>
+                  {doc.estado}
+                </span>
+              </td>
+              <td>
+                <a href={`/admin/documentos/${doc.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
+                <a href={`/admin/documentos/${doc.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                <button class="btn btn-sm btn-outline-danger" disabled>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a href="/admin/documentos/nuevo" class="btn btn-primary mt-3">Subir Documento</a>
+  </main>
+  <Footer/>
+</Layout>

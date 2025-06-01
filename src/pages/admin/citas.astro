@@ -1,0 +1,56 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+const citas = [
+  { id: 1, alumno: "Laura Sánchez", fecha: "2024-06-01", hora: "09:00", tipo: "Examen Teórico", estado: "Confirmada" },
+  { id: 2, alumno: "Juan López", fecha: "2024-06-03", hora: "11:00", tipo: "Clase Práctica", estado: "Pendiente" },
+  { id: 3, alumno: "Lucía Torres", fecha: "2024-06-05", hora: "16:00", tipo: "Examen Práctico", estado: "Cancelada" }
+];
+---
+
+<Layout title="Citas y Reservas">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <h1 class="mb-4 text-primary fw-bold">Citas y Reservas</h1>
+    <p class="mb-3 text-secondary">Gestiona reservas de clases, exámenes y citas de alumnos.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th><th>Alumno</th><th>Fecha</th><th>Hora</th>
+            <th>Tipo</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {citas.map(cita => (
+            <tr>
+              <td>{cita.id}</td>
+              <td>{cita.alumno}</td>
+              <td>{cita.fecha}</td>
+              <td>{cita.hora}</td>
+              <td>{cita.tipo}</td>
+              <td>
+                <span class={`badge ${
+                  cita.estado === 'Confirmada' ? 'bg-success' :
+                  cita.estado === 'Pendiente' ? 'bg-warning text-dark' :
+                  'bg-danger'
+                }`}>
+                  {cita.estado}
+                </span>
+              </td>
+              <td>
+                <a href={`/admin/citas/${cita.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
+                <a href={`/admin/citas/${cita.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                <button class="btn btn-sm btn-outline-danger" disabled>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a href="/admin/citas/nueva" class="btn btn-primary mt-3">Nueva Cita/Reserva</a>
+  </main>
+  <Footer/>
+</Layout>

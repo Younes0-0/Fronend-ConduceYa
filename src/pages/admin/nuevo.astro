@@ -1,0 +1,75 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+const alumnos = [
+  { id: 1, nombre: "Laura Sánchez" },
+  { id: 2, nombre: "Juan López" },
+  { id: 3, nombre: "Lucía Torres" }
+];
+const conceptos = [
+  "Clase práctica",
+  "Examen",
+  "Tasas DGT",
+  "Material didáctico"
+];
+const estados = ["Pendiente", "Pagado", "Rechazado"];
+---
+
+<Layout title="Nuevo Pago">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h1 class="mb-4 text-primary fw-bold">Nuevo Pago</h1>
+            <form method="POST" action="/admin/pagos/crear">
+              <div class="mb-3">
+                <label for="alumno" class="form-label">Alumno</label>
+                <select required class="form-select" id="alumno" name="alumno">
+                  <option value="">Selecciona un alumno</option>
+                  {alumnos.map(alumno => (
+                    <option value={alumno.id}>{alumno.nombre}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input required type="date" class="form-control" id="fecha" name="fecha" />
+              </div>
+              <div class="mb-3">
+                <label for="concepto" class="form-label">Concepto</label>
+                <select required class="form-select" id="concepto" name="concepto">
+                  <option value="">Selecciona el concepto</option>
+                  {conceptos.map(concepto => (
+                    <option value={concepto}>{concepto}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="importe" class="form-label">Importe (€)</label>
+                <input required type="number" step="0.01" min="0" class="form-control" id="importe" name="importe" placeholder="Ej: 30.00" />
+              </div>
+              <div class="mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select required class="form-select" id="estado" name="estado">
+                  <option value="">Selecciona el estado</option>
+                  {estados.map(estado => (
+                    <option value={estado}>{estado}</option>
+                  ))}
+                </select>
+              </div>
+              <div class="d-flex justify-content-end gap-2">
+                <a href="/admin/pagos" class="btn btn-outline-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Pago</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer/>
+</Layout>

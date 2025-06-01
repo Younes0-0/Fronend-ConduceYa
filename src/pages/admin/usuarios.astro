@@ -1,0 +1,86 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+import { authFetch } from '@/utils/authFetch';
+
+let usuarios = [];
+let nextPage = null;
+
+try {
+  const url = new URL(Astro.request.url);
+  const page = url.searchParams.get('page') ?? 1;
+  const apiUrl = `http://localhost:8000/api/usuarios/users/?page=${page}`;
+  const data = await authFetch(Astro, apiUrl);
+  usuarios = data.results;
+  const next = data.next;
+  nextPage = next ? new URL(next).searchParams.get('page') : null;
+} catch (e) {
+  const error = e as Error;
+  if (error.message === 'NO_TOKEN' || error.message === 'UNAUTHORIZED') {
+    return Astro.redirect('/login');
+  }
+  // Puedes mostrar un error genérico o manejar otros casos aquí
+}
+---
+
+<Layout title="Gestión de Usuarios">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <h1 class="mb-4 text-primary fw-bold">Gestión de Usuarios</h1>
+    <p class="mb-3 text-secondary">Aquí puedes ver, crear, editar o eliminar alumnos y usuarios del sistema.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {usuarios.map((usuario: { id: unknown; username: unknown; first_name: unknown; last_name: unknown; rol: unknown; }) => (
+            <tr>
+              <td>{usuario.id}</td>
+              <td>{usuario.username}</td>
+              <td>{usuario.first_name}</td>
+              <td>{usuario.last_name}</td>
+              <td>
+                <span class={`badge ${
+                  usuario.rol === 'admin' ? 'bg-warning text-dark' :
+                  usuario.rol === 'profesor' ? 'bg-info text-dark' :
+                  'bg-primary'
+                }`}>
+                  {usuario.rol === 'admin' ? 'Admin' :
+                   usuario.rol === 'profesor' ? 'Profesor' :
+                   usuario.rol === 'A' ? 'Alumno' :
+                   usuario.rol}
+                </span>
+              </td>
+              <td>
+                <a href={`/admin/usuarios/${usuario.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
+                <a href={`/admin/usuarios/${usuario.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center gap-3 my-4">
+      {nextPage &&
+        <a href={`?page=${nextPage}`} class="btn btn-outline-primary btn-lg">
+          Mostrar más usuarios
+        </a>
+      }
+      <a href="/admin/usuarios/nuevo" class="btn btn-primary btn-lg">
+        Añadir Usuario
+      </a>
+    </div>
+
+  </main>
+  <Footer/>
+</Layout>

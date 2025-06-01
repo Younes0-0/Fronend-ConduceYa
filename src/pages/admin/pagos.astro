@@ -1,0 +1,56 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/layout/Menu.astro';
+import Footer from '@components/layout/Footer.astro';
+
+const pagos = [
+  { id: 1, alumno: "Laura Sánchez", fecha: "2024-05-25", concepto: "Clase práctica", importe: 30, estado: "Pagado" },
+  { id: 2, alumno: "Juan López", fecha: "2024-05-27", concepto: "Examen", importe: 60, estado: "Pendiente" },
+  { id: 3, alumno: "Lucía Torres", fecha: "2024-05-29", concepto: "Tasas DGT", importe: 92.2, estado: "Rechazado" }
+];
+---
+
+<Layout title="Pagos y Cobros">
+  <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
+  <main class="container py-4">
+    <h1 class="mb-4 text-primary fw-bold">Pagos y Cobros</h1>
+    <p class="mb-3 text-secondary">Visualiza, gestiona y revisa los pagos de alumnos y profesores.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white rounded-4 shadow-sm">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th><th>Alumno</th><th>Fecha</th>
+            <th>Concepto</th><th>Importe (€)</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pagos.map(pago => (
+            <tr>
+              <td>{pago.id}</td>
+              <td>{pago.alumno}</td>
+              <td>{pago.fecha}</td>
+              <td>{pago.concepto}</td>
+              <td>{pago.importe.toFixed(2)}</td>
+              <td>
+                <span class={`badge ${
+                  pago.estado === 'Pagado' ? 'bg-success' :
+                  pago.estado === 'Pendiente' ? 'bg-warning text-dark' :
+                  'bg-danger'
+                }`}>
+                  {pago.estado}
+                </span>
+              </td>
+              <td>
+                <a href={`/admin/pagos/${pago.id}`} class="btn btn-sm btn-outline-primary me-2">Ver</a>
+                <a href={`/admin/pagos/${pago.id}/editar`} class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                <button class="btn btn-sm btn-outline-danger" disabled>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a href="/admin/pagos/nuevo" class="btn btn-primary mt-3">Registrar Pago</a>
+  </main>
+  <Footer/>
+</Layout>

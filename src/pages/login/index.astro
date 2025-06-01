@@ -9,6 +9,11 @@ const session = await getSession(Astro.request);
 if (session) {
   return Astro.redirect("/perfil");
 }
+const TOKEN = Astro.cookies.get('jwt_token')?.value || '';
+
+if (TOKEN) {
+  return Astro.redirect('/admin-dashboard'); // Redirige si ya hay token
+}
 
 // Login page
 if (Astro.request.method === "POST") {
@@ -16,21 +21,29 @@ if (Astro.request.method === "POST") {
     const form = await Astro.request.formData();
     const username = form.get("username");
     const password = form.get("password");
-    //[TODO] CAMBIAR A LA URL DEL BACKEND
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
+    const response = await fetch("https://backend-conduceya.onrender.com/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, password }),
     });
-    if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.detail || "Usuario o contraseña incorrectos.");
-    }
     const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.detail || "Usuario o contraseña incorrectos.");
+    }
+
+    // Guarda el token en una cookie (NO HTTPOnly aquí, para ejemplo)
+    console.log(data);
     
-    // Do something with the data
+    Astro.cookies.set("jwt_token", data.access, {
+      path: "/",
+      httpOnly: false, // Si usas Astro SSR, mejor usar true y validar en backend
+      secure: false
+    });
+
+    // Redirige tras login exitoso
+    return Astro.redirect("/admin-dashboard"); // O a /admin/usuarios si es admin
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -82,8 +95,8 @@ if (Astro.request.method === "POST") {
 
 <script>
     const { signIn } = await import("auth-astro/client")
-    document.querySelector("#google").onclick = () => signIn("google")
-    document.querySelector("#github").onclick = () => signIn("github")
+    document.querySelector("#google")?.addEventListener("click", () => signIn("google"));
+    document.querySelector("#github")?.addEventListener("click", () => signIn("github"));
    
 </script>
 
