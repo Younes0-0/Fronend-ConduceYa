@@ -21,7 +21,7 @@ if (Astro.request.method === "POST") {
     const form = await Astro.request.formData();
     const username = form.get("username");
     const password = form.get("password");
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
+    const response = await fetch("https://backend-conduceya.onrender.com/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ if (Astro.request.method === "POST") {
     });
 
     // Redirige tras login exitoso
-    return Astro.redirect("/perfil"); // O a /admin/usuarios si es admin
+    return Astro.redirect("/admin-dashborard"); // O a /admin/usuarios si es admin
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
