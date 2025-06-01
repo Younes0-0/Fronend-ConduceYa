@@ -27,7 +27,7 @@ interface Profesor {
 let profesores: Profesor[] = [];
 
 try {
-  const apiUrl = `http://localhost:8000/api/usuarios/profesores/`;
+  const apiUrl = `https://backend-conduceya.onrender.com/api/usuarios/profesores/`;
   const data = await authFetch(Astro, apiUrl);
   profesores = data.results as Profesor[];
 } catch (e) {
