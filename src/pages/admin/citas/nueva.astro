@@ -3,6 +3,12 @@ import Layout from '@layouts/Layout.astro';
 import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 
+const existingToken = Astro.cookies.get('jwt_token')?.value;
+if (!existingToken) {
+  return Astro.redirect('/login');
+}
+
+
 // Ejemplo de alumnos
 const alumnos = [
   { id: 1, nombre: "Laura Sánchez" },

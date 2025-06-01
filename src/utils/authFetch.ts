@@ -1,27 +1,39 @@
-export async function authFetch(Astro: any, url: string) {
-  // Leer token de cookie
-  const TOKEN = Astro.cookies.get('jwt_token')?.value || '';
-  console.log(`Token: ${TOKEN}`);
-  
+import type { AstroGlobal } from 'astro';
 
-  if (!TOKEN) {
-    // Si no hay token, redirige al login (puedes lanzar un error, según el uso)
-    throw new Error('NO_TOKEN');
-  }
+type ApiErrorCode = 'NO_TOKEN' | 'UNAUTHORIZED' | 'API_ERROR';
 
+export async function authFetch<T>(
+  Astro: AstroGlobal,
+  url: string,
+  init: RequestInit = {}
+): Promise<T | null> {
+  // --- 1) Token presente ------------------------------------ //
+  const token = Astro.cookies.get('jwt_token')?.value;
+  if (!token) throw new Error('NO_TOKEN');
+
+  // --- 2) Llamada ------------------------------------------- //
   const res = await fetch(url, {
+    ...init,
     headers: {
-      'Authorization': `Bearer ${TOKEN}`
-    }
+      Authorization: `Bearer ${token}`,
+      ...(init.headers || {}),
+    },
   });
 
-  if (!res.ok) {
-    if (res.status === 401) {
-      // Token expirado o inválido, redirigir o manejar según el caso
-      throw new Error('UNAUTHORIZED');
-    }
-    throw new Error('API_ERROR');
+  // --- 3) Éxito rápido -------------------------------------- //
+  if (res.ok) {
+    return res.status === 204 ? null : await res.json();
   }
 
-  return res.json();
+  // --- 4) Error: lee cuerpo una sola vez -------------------- //
+  const body = await res.json().catch(() => ({}));
+  console.error(`API ${res.status} →`, body);
+
+  // --- 5) Casos de 401 -------------------------------------- //
+  if (res.status === 401) {
+    throw new Error('UNAUTHORIZED');
+  }
+
+  // --- 6) Otros errores ------------------------------------- //
+  throw new Error('API_ERROR');
 }
