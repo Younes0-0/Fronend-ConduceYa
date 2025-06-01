@@ -10,7 +10,7 @@ if (Astro.request.method === "POST") {
     const form = await Astro.request.formData();
     const username = form.get("username");
     const password = form.get("password");
-    const response = await fetch("https://backend-conduceya.onrender.com/api/token/", {
+    const response = await fetch("https://backend-conduceya.onrender.com/api/v1/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
