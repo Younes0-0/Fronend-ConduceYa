@@ -5,12 +5,17 @@ import Footer from '@components/layout/Footer.astro';
 import Hero from '@components/permisos/Hero.astro';
 import { SignOut } from 'auth-astro/components';
 import { getSession } from "auth-astro/server";
-const session = await getSession(Astro.request);
 
+const session = await getSession(Astro.request);
 const existingToken = Astro.cookies.get('jwt_token')?.value;
 if (existingToken) {
   return Astro.redirect('/admin-dashboard');
 }
+if (!session) {
+  return Astro.redirect('/login');
+}
+
+
 
 const usuario = {
   nombre: session?.user?.name || "Laura Sánchez",
