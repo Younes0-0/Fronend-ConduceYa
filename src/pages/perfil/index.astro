@@ -5,19 +5,17 @@ import Footer from '@components/layout/Footer.astro';
 import Hero from '@components/permisos/Hero.astro';
 import { SignOut } from 'auth-astro/components';
 import { getSession } from "auth-astro/server";
-const session = await getSession(Astro.request);
 
+const session = await getSession(Astro.request);
 const existingToken = Astro.cookies.get('jwt_token')?.value;
-// Comprobar si el usuario ya tiene un token de sesión
-// y redirigirlo al dashboard si es así
 if (existingToken) {
   return Astro.redirect('/admin-dashboard');
 }
-// Si no hay sesión, redirigir al usuario a la página de login
-// y si no hay usuario en la sesión, redirigir también
-if (!session && !session) {
+if (!session) {
   return Astro.redirect('/login');
 }
+
+
 
 const usuario = {
   nombre: session?.user?.name || "Laura Sánchez",
