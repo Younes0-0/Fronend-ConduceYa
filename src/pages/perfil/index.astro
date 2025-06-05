@@ -10,7 +10,6 @@ const session = await getSession(Astro.request);
 if (!session || !session.user) {
   return Astro.redirect('/login');
 }
-console.log(session.user);
 const usuario = {
   nombre: session.user?.name || "Laura Sánchez",
   role: "alumno",
