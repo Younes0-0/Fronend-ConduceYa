@@ -163,7 +163,7 @@ const funcionesAdmin = [
                 <div class="text-muted small">Profesores activos</div>
               </div>
             </div>
-            <button class="btn btn-outline-primary w-100 mt-2">Cerrar sesión</button>
+            <button class="btn btn-outline-primary w-100 mt-2" onclick=Astro.cookies.delete('jwt_token')>Cerrar sesión</button>
           </div>
         </div>
       </div>
