@@ -7,13 +7,11 @@ import { SignOut } from 'auth-astro/components';
 import { getSession } from "auth-astro/server";
 const session = await getSession(Astro.request);
 
-if (!session || !session.user) {
-  return Astro.redirect('/login');
-}
+
 const usuario = {
-  nombre: session.user?.name || "Laura Sánchez",
+  nombre: session?.user?.name || "Laura Sánchez",
   role: "alumno",
-  email: session.user?.email || "jjjjj@gmailc.com",
+  email: session?.user?.email || "jjjjj@gmailc.com",
   telefono: "612345678",
   date_joined: "2024-11-15T10:00:00Z",
   progresoTeorico: 65,
@@ -54,7 +52,7 @@ const usuario = {
 <Layout title="Mi Perfil">
   <Menu imageSrc="/img/logo-letras.png" imageAlt="logo de la empresa"/>
   <Hero 
-    title={session.user?.name || usuario.nombre}
+    title={usuario.nombre}
     subtitle={usuario.role}
     buttonText="Editar Perfil"
     buttonLink="/editar-perfil"
@@ -68,7 +66,7 @@ const usuario = {
             <h2 class="card-title h5 border-bottom pb-2 mb-3 text-primary">Información Personal</h2>
             <ul class="list-unstyled mb-0">
               <li class="mb-2">
-                <strong class="text-secondary">Email:</strong> {session.user?.email || usuario.email}
+                <strong class="text-secondary">Email:</strong> {usuario.email}
               </li>
               <li class="mb-2">
                 <strong class="text-secondary">Teléfono:</strong> {usuario.telefono}
