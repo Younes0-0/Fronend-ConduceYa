@@ -4,8 +4,13 @@ import Menu from '@components/layout/Menu.astro';
 import Footer from '@components/layout/Footer.astro';
 import Hero from '@components/permisos/Hero.astro';
 import { SignOut } from 'auth-astro/components';
+import { getSession } from "auth-astro/server";
 //TODO: Implementar autenticación y autorización real
+const session = await getSession(Astro.request);
 
+if (session) {
+  return Astro.redirect('/perfil');
+}
 
 const existingToken = Astro.cookies.get('jwt_token')?.value;
 if (!existingToken) {

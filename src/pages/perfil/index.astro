@@ -7,13 +7,13 @@ import { SignOut } from 'auth-astro/components';
 import { getSession } from "auth-astro/server";
 const session = await getSession(Astro.request);
 
-if (!session) {
-  return Astro.redirect("/admin-dashboard");
+if (!session || !session.user) {
+  return Astro.redirect('/login');
 }
 const usuario = {
-  nombre: "Laura Sánchez",
+  nombre: session.user?.name || "Laura Sánchez",
   role: "alumno",
-  email: "laura.sanchez@example.com",
+  email: session.user?.email || "jjjjj@gmailc.com",
   telefono: "612345678",
   date_joined: "2024-11-15T10:00:00Z",
   progresoTeorico: 65,
